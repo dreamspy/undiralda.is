@@ -1,1 +1,49 @@
-hello
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Random Video</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: black;
+      overflow: hidden;
+      height: 100%;
+      width: 100%;
+    }
+
+    video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: contain;
+      display: block;
+      background: black;
+    }
+  </style>
+</head>
+<body>
+  <video id="video" autoplay muted loop playsinline>
+    <!-- source added via JS -->
+    Your browser does not support the video tag.
+  </video>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const video = document.getElementById('video');
+      const randomNumber = Math.floor(Math.random() * 3) + 1;
+      const source = document.createElement('source');
+      source.src = `${randomNumber}.mp4`;
+      source.type = 'video/mp4';
+      video.appendChild(source);
+      video.load();
+
+      // Disable right-click
+      document.addEventListener('contextmenu', event => event.preventDefault());
+    });
+  </script>
+</body>
+</html>

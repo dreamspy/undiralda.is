@@ -2,35 +2,52 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Video Background</title>
+  <title>Random Video</title>
   <style>
     html, body {
       margin: 0;
       padding: 0;
-      background-color: white;
+      background: black;
       overflow: hidden;
       height: 100%;
       width: 100%;
     }
 
     video {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      min-width: 100%;
-      min-height: 100%;
-      transform: translate(-50%, -50%);
-      object-fit: cover;
-      z-index: -1;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: contain;
+      display: block;
+      background: black;
+    }
+
+    .vignette {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 1;
+      background: radial-gradient(ellipse at center, rgba(0,0,0,0) 40%, rgba(0,0,0,0.6) 100%);
     }
   </style>
 </head>
 <body>
-  hello2
-  <video autoplay muted loop playsinline>
-    <source src="./video.mp4" type="video/mp4" />
-    Your browser does not support the video tag.
-  </video>
+  <video id="video" autoplay muted loop playsinline></video>
+  <div class="vignette"></div>
+
+  <script>
+    const video = document.getElementById('video');
+    const randomNumber = Math.floor(Math.random() * 5) + 1; // 1 to 5
+    const source = document.createElement('source');
+    source.src = `${randomNumber}.mp4`;
+    source.type = 'video/mp4';
+    video.appendChild(source);
+    video.load();
+  </script>
 </body>
 </html>
